@@ -8,7 +8,7 @@ Reprend exactement les transformations du notebook :
 import pandas as pd
 
 # Champs bruts que l'API reçoit (et que le modèle utilise)
-RAW_FEATURES = ["age", "education_num", "hours_per_week", "workclass", "occupation"]
+RAW_FEATURES = ["age", "education_level", "hours_per_week", "workclass", "occupation"]
 
 # Colonnes après préparation
 NUMERIC_COLS = ["age", "education_level", "hours_per_week"]
