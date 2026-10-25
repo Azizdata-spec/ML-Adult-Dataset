@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Analyse en lot</h3>
+<p class="text-muted">Téléversez un CSV (une ligne d'en-tête, mêmes colonnes que le formulaire). Chaque ligne est analysée,
+puis vous pouvez filtrer par segment et exporter la liste des personnes à cibler.</p>
+<form method="post" enctype="multipart/form-data" class="row g-3">
+  <div class="col-md-5"><input type="file" name="csv" accept=".csv,.txt" class="form-control"></div>
+  <div class="col-md-4">
+    <select name="segment" class="form-select">
+      <option value="">Tous les segments</option>
+      {% for s in segments %}<option value="{{ s }}" {% if s == selected %}selected{% endif %}>{{ s }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3 d-flex gap-2">
+    <button class="btn btn-primary" name="action" value="analyze">Analyser</button>
+    <button class="btn btn-outline-secondary" name="action" value="export">Exporter CSV</button>
+  </div>
+</form>
+
+{% if error %}<div class="alert alert-danger mt-3">{{ error }}</div>{% endif %}
+{% if table %}
+<div class="mt-4">
+  <p><strong>{{ total }}</strong> ligne(s) affichée(s){% if skipped %} · <span class="text-danger">{{ skipped }} ligne(s) ignorée(s) (invalides)</span>{% endif %}.</p>
+  <p>{% for name, n in counts.items() %}<span class="badge text-bg-primary me-1">{{ name }} : {{ n }}</span>{% endfor %}</p>
+  <div class="table-responsive">{{ table | safe }}</div>
+  <small class="text-muted">200 premières lignes affichées ; l'export contient toutes les lignes du filtre.</small>
+</div>
+{% endif %}
+{% endblock %}

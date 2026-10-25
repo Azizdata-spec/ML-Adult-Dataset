@@ -1,0 +1,22 @@
+{
+  "model_version": "v1",
+  "model_file": "segmentation_v1.joblib",
+  "trained_at": "2026-10-20T06:51:00+00:00",
+  "n_rows": 32537,
+  "n_clusters": 3,
+  "silhouette": 0.2086,
+  "cluster_names": {
+    "0": "Seniors des métiers manuels et indépendants",
+    "1": "Cadres et professions intellectuelles",
+    "2": "Jeunes salariés du privé"
+  },
+  "features": [
+    "age",
+    "education_num",
+    "hours_per_week",
+    "workclass",
+    "occupation"
+  ],
+  "sklearn_version": "1.9.1",
+  "pandas_version": "3.0.6"
+}

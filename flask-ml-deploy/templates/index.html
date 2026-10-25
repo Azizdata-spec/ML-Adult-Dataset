@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% macro result_card(r) %}
+<div class="row g-3 mt-2">
+  <div class="col-md-6"><div class="card h-100"><div class="card-body">
+    <h6 class="text-muted">Segment</h6>
+    <h4>{{ r.segment or "—" }}</h4>
+    {% if r.distance is not none %}<small class="text-muted">distance au centre du cluster : {{ r.distance }}</small>{% endif %}
+  </div></div></div>
+  <div class="col-md-6"><div class="card h-100"><div class="card-body">
+    <h6 class="text-muted">Valeurs utilisées / estimées</h6>
+    {% for t, e in r.estimations.items() %}
+      <div class="mb-1">{{ e.label }} : <strong>{{ e.value }}</strong>
+        {% if e.estimated %}<span class="badge text-bg-warning">estimé</span>
+        {% else %}<span class="badge text-bg-secondary">saisi</span> <small class="text-muted">(le modèle prédit : {{ e.predicted }})</small>{% endif %}
+      </div>
+    {% else %}<small class="text-muted">Aucun modèle d'estimation chargé.</small>{% endfor %}
+  </div></div></div>
+  <div class="col-12"><div class="card"><div class="card-body">
+    <h6 class="text-muted">Scores des classifieurs</h6>
+    {% for name, s in r.scores.items() %}
+      <div class="mb-2">{{ s.label }}
+        <span class="badge {{ 'text-bg-success' if s.positive else 'text-bg-secondary' }}">{{ 'Oui' if s.positive else 'Non' }}</span>
+        <div class="progress" style="height: 16px">
+          <div class="progress-bar" style="width: {{ (s.proba * 100) | round(0) | int }}%">{{ (s.proba * 100) | round(0) | int }} %</div>
+        </div>
+      </div>
+    {% else %}<small class="text-muted">Aucun classifieur chargé.</small>{% endfor %}
+  </div></div></div>
+  <div class="col-12"><div class="alert alert-success mb-0"><strong>Recommandation :</strong> {{ r.recommendation }}</div></div>
+</div>
+{% endmacro %}
+
+{% block content %}
+<h3 class="mb-3">Fiche profil</h3>
+<form method="post" class="row g-3">
+  {% for f in schema %}
+  <div class="col-md-4">
+    <label class="form-label">{{ f.label }}{% if f.name in optional %} <small class="text-muted">(optionnel : estimé par un modèle)</small>{% endif %}</label>
+    {% if f.type == "select" %}
+    <select name="{{ f.name }}" class="form-select">
+      {% if f.name in optional %}<option value="">— à estimer —</option>{% endif %}
+      {% for c in f.choices %}<option value="{{ c }}" {% if values.get(f.name) == c %}selected{% endif %}>{{ c }}</option>{% endfor %}
+    </select>
+    {% else %}
+    <input type="number" step="any" class="form-control" name="{{ f.name }}"
+           {% if f.min is defined %}min="{{ f.min }}"{% endif %} {% if f.max is defined %}max="{{ f.max }}"{% endif %}
+           value="{{ values.get(f.name, '') }}">
+    {% endif %}
+  </div>
+  {% endfor %}
+  <div class="col-12"><button class="btn btn-primary">Analyser</button></div>
+</form>
+
+{% if errors %}
+<div class="alert alert-danger mt-3"><ul class="mb-0">{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>
+{% endif %}
+{% if result %}{{ result_card(result) }}{% endif %}
+{% endblock %}

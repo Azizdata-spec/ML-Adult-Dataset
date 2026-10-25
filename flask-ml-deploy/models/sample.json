@@ -1,0 +1,10 @@
+{
+  "input": {
+    "age": 39,
+    "education_num": 13,
+    "hours_per_week": 40,
+    "workclass": "State-gov",
+    "occupation": "Adm-clerical"
+  },
+  "expected_cluster": 1
+}

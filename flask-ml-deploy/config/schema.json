@@ -1,0 +1,13 @@
+{
+  "fields": [
+    {"name": "age", "label": "Âge", "type": "number", "min": 15, "max": 100},
+    {"name": "education_num", "label": "Niveau d'études (1 à 16)", "type": "number", "min": 1, "max": 16},
+    {"name": "workclass", "label": "Type d'employeur", "type": "select",
+     "choices": ["Private", "Self-emp-not-inc", "Self-emp-inc", "Federal-gov", "State-gov", "Local-gov", "Without-pay", "Never-worked", "Unknown"]},
+    {"name": "occupation", "label": "Profession", "type": "select",
+     "choices": ["Exec-managerial", "Prof-specialty", "Adm-clerical", "Sales", "Tech-support", "Craft-repair", "Machine-op-inspct", "Transport-moving", "Handlers-cleaners", "Farming-fishing", "Other-service", "Priv-house-serv", "Protective-serv", "Armed-Forces", "Unknown"]},
+    {"name": "hours_per_week", "label": "Heures par semaine", "type": "number", "min": 1, "max": 99},
+    {"name": "marital_status", "label": "Situation familiale", "type": "select",
+     "choices": ["Married-civ-spouse", "Never-married", "Divorced", "Separated", "Widowed", "Married-spouse-absent", "Married-AF-spouse"]}
+  ]
+}

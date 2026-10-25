@@ -1,0 +1,28 @@
+{
+  "_note": "Adaptez 'features', 'file', 'target' et 'positive_label' a vos modeles. Les estimateurs sont executes dans l'ordre de cette liste.",
+  "models": [
+    {"name": "hours_reg", "label": "Heures travaillées par semaine", "role": "estimator", "task": "regression",
+     "target": "hours_per_week", "file": "hours_reg.joblib",
+     "features": ["age", "education_num", "workclass", "marital_status"]},
+
+    {"name": "occupation_clf", "label": "Profession probable", "role": "estimator", "task": "classification",
+     "target": "occupation", "file": "occupation_clf.joblib",
+     "features": ["age", "education_num", "workclass", "marital_status"]},
+
+    {"name": "segmentation", "label": "Segment", "role": "segmentation", "task": "clustering",
+     "file": "segmentation_v1.joblib", "names_file": "metadata.json",
+     "features": ["age", "education_num", "hours_per_week", "workclass", "occupation"]},
+
+    {"name": "income_clf", "label": "Revenu supérieur à 50K", "role": "score", "task": "classification",
+     "target": "income", "positive_label": ">50K", "file": "income_clf.joblib",
+     "features": ["age", "education_num", "hours_per_week", "workclass", "occupation", "marital_status"]},
+
+    {"name": "has_gain_clf", "label": "Gain en capital positif", "role": "score", "task": "classification",
+     "target": "has_gain", "positive_label": 1, "file": "has_gain_clf.joblib",
+     "features": ["age", "education_num", "hours_per_week", "workclass", "occupation", "marital_status"]},
+
+    {"name": "bourse_clf", "label": "Obtention d'une bourse", "role": "score", "task": "classification",
+     "target": "get_bourse", "positive_label": 1, "file": "bourse_clf.joblib",
+     "features": ["age", "education_num", "hours_per_week", "workclass", "occupation"]}
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "_note": "Exemples a adapter. Les regles sont evaluees dans l'ordre, la premiere qui correspond gagne. 'if' = nom du modele -> true (score positif) ou false.",
+  "rules": [
+    {"segment": "Cadres et professions intellectuelles", "if": {"income_clf": true},
+     "offer": "Formation de leadership et certification avancée"},
+    {"segment": "Cadres et professions intellectuelles",
+     "offer": "Parcours de montée en compétences (management)"},
+    {"segment": "Jeunes salariés du privé", "if": {"bourse_clf": true},
+     "offer": "Formation d'évolution avec bourse"},
+    {"segment": "Jeunes salariés du privé",
+     "offer": "Formation d'entrée dans le métier"},
+    {"segment": "Seniors des métiers manuels et indépendants", "if": {"has_gain_clf": true},
+     "offer": "Formation entrepreneuriat et gestion"},
+    {"segment": "Seniors des métiers manuels et indépendants",
+     "offer": "Formation de reconversion"},
+    {"if": {"bourse_clf": true}, "offer": "Formation financée par une bourse"}
+  ],
+  "default": {"offer": "Catalogue général de formations"}
+}
